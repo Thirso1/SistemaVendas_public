@@ -1,0 +1,49 @@
+﻿@model List<SistemaVendas.Models.ItemVenda>
+@{
+    ViewData["Title"] = "Relatorio Produtos Vendidos";
+}
+<div class="container">
+    <h3>Relatório Saída de Produtos</h3>
+    <form id="form_saida_estoque" method="GET">
+        <div class="row">
+            <div class="form-group col-md-4">
+
+                <label for="dataInicio">Data:</label>
+                <input type="date" id="dataInicio" name="dataInicio" class="form-control" value="@ViewBag.DataHoje">
+            </div>
+            <button asp-action="unidadesProdutosVendidos" asp-controller="Venda" id="ir" class="btn btn-success botaoCadastrarNovo">buscar</button>
+        </div>
+    </form>
+
+    @if (Model.Count > 0)
+    {
+
+        <table class="table table-striped" id="tabelaPedido">
+            <thead>
+                <tr>
+                    <th scope="col">Código Produto</th>
+                    <th scope="col">Nome (Descrição)</th>
+                    <th scope="col">Qtde Vendida</th>
+                </tr>
+            </thead>
+            <tbody id="bodyTable">
+                @{
+                    foreach (SistemaVendas.Models.ItemVenda item in Model)
+                    {
+                        <tr>
+                            <td>@item.ProdutoId</td>
+                            <td>@item.Nome</td>
+                            <td>@item.Qtde</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+    }
+    else
+    {
+        <span class="alert-danger">Nenhum Produto vendido nessa Data!</span>
+    }
+</div>
+

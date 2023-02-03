@@ -1,0 +1,46 @@
+﻿@model SistemaVendas.Models.Produto
+@{
+    ViewData["Title"] = "Atualizar";
+}
+
+<h1>Suprir</h1>
+
+<form method="post">
+    <div class="row">
+
+        <div class="form-group col-md-6">
+            <label>Produto</label>
+            <input asp-for="Nome" class="form-control" placeholder="Digite o nome do produto" />
+            <span asp-validation-for="Nome" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        @*linha do estoque*@
+        <div class="form-group col-md-4">
+            <label>Estoque Atual</label>
+            <div class="input-group mb-2">
+                <input asp-for="Estoque" class="form-control" readonly/>
+                <div class="input-group-prepend">
+                    <div class="input-group-text">unid</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        @*linha do estoque*@
+        <div class="form-group col-md-4">
+            <label>Suprir</label>
+            <div class="input-group mb-2">
+                <input asp-for="Estoque" class="form-control qtdePeso" placeholder="Digite a qtde a suprir" />
+                <div class="input-group-prepend">
+                    <div class="input-group-text">unid</div>
+                </div>
+            </div>
+            <span asp-validation-for="Estoque" class="text-danger"></span>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Salvar</button> <a asp-action="Index" class="btn btn-info">Voltar</a>
+</form>

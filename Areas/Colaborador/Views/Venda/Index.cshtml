@@ -1,0 +1,153 @@
+﻿@model X.PagedList.IPagedList<SistemaVendas.Models.Venda>
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+
+@{
+    ViewData["Title"] = "Index";
+    var pesquisa = Context.Request.Query["pesquisa"];
+}
+<div class="container">
+
+    <h1>Vendas</h1>
+
+    <br />
+    <br />
+    <!--
+        Formulário
+        -- QueryString: Colaborador/Cliente/Index?pesquisa={palavraDigitada}&pagina=3
+    -->
+    <br>
+    <form id="form_consulta_vendas" method="GET">
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="ClienteId">Cliente</label>
+                <select for="ClienteId" class="form-control selectClienteVenda" id="selectClienteVenda" name="selectClienteVenda" asp-items="@ViewBag.Clientes">
+                    @{
+                        if (@ViewBag.Cliente != null)
+                        {
+                            <option value="@ViewBag.Cliente.Id">@ViewBag.Cliente.Nome</option>
+                        }
+                        else
+                        {
+                            <option value="">Selecione</option>
+                        }
+                    }
+                </select>
+            </div>
+            <a asp-action="Cadastrar" class="btn btn-secondary botaoCadastrarNovo">Nova Venda</a>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+
+                <label for="dataInicio">Data Início:</label>
+                <input type="date" id="dataInicio" name="dataInicio" class="form-control" value="@ViewBag.inicio">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="dataFim">Data Fim:</label>
+                <input type="date" id="dataFim" name="dataFim" class="form-control" value="@ViewBag.fim">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label for="status">Status da Venda</label>
+                <select for="status" class="form-control statusVenda" id="statusVenda" name="statusVenda">
+
+                    @{
+                        if (@ViewBag.status != null)
+                        {
+                            <option value="@ViewBag.status">@ViewBag.status</option>
+                        }
+                    }
+                    <option value="">Selecione</option>
+                    <option value="@StatusPagamento.Pago">Pago</option>
+                    <option value="@StatusPagamento.NaoPago">Não Pago</option>
+                </select>
+            </div>
+            <button type="button" onclick="buscarVendas()" class="btn btn-primary botaoCadastrarNovo">Buscar</button>
+        </div>
+
+    </form>
+    <br />
+    <br />
+
+    @{ await Html.RenderPartialAsync("~/Views/Shared/_Mensagem.cshtml"); }
+
+
+
+    @if (Model.Count > 0)
+    {
+
+        <div class="table-responsive">
+            <table class="table table-striped table-sm table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">@Html.DisplayNameFor(model => model.First().Id)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.First().Cliente.Nome)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.First().DataRegistro)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.First().StatusVenda)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.First().ValorTotal)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.First().StatusPagamento)</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+                <tbody class="tabelas" id="tbRelVendas">
+                    @foreach (SistemaVendas.Models.Venda venda in Model)
+                    {
+                        @if (venda.StatusVenda == SistemaVendas.Enums.StatusVenda.Suspensa)
+                        {
+                            <tr class="linha_amarela">
+                                <th scope="row">@venda.Id</th>
+                                <td>@venda.Cliente.Nome</td>
+                                <td>@venda.DataRegistro</td>
+                                <td>@venda.StatusVenda</td>
+                                <td>@venda.ValorTotal</td>
+                                <td>@venda.StatusPagamento</td>
+                                <td>
+                                    <a asp-action="Atualizar" asp-route-id="@venda.Id" class="btn btn-warning btn-tables"><img alt="Editar" class="icones" src="~/img/icones/editar.svg" /></a>
+                                    <a asp-action="Excluir" asp-route-id="@venda.Id" class="btn btn-danger btn-tables"><img alt="Excluir" class="icones" src="~/img/icones/excluir.svg" /></a>
+                                </td>
+                            </tr>
+                        }
+                        else if (venda.StatusVenda == SistemaVendas.Enums.StatusVenda.Finalizada && venda.StatusPagamento == SistemaVendas.Enums.StatusPagamento.NaoPago)
+                        {
+                            <tr class="linha_vermelha">
+                                <th scope="row">@venda.Id</th>
+                                <td>@venda.Cliente.Nome</td>
+                                <td>@venda.DataRegistro</td>
+                                <td>@venda.StatusVenda</td>
+                                <td>@venda.ValorTotal</td>
+                                <td>@venda.StatusPagamento</td>
+                                <td>
+                                    <a asp-action="Detalhar" asp-route-id="@venda.Id" class="btn btn-secondary btn-tables"><img alt="Excluir" class="icones" src="~/img/icones/buscar.svg" /></a>
+                                    <a asp-action="Excluir" asp-route-id="@venda.Id" class="btn btn-danger btn-tables"><img alt="Excluir" class="icones" src="~/img/icones/excluir.svg" /></a>
+                                    <a asp-action="Receber" asp-route-id="@venda.Id" class="btn btn-success btn-tables"><img alt="Excluir" class="icones" src="~/img/icones/dollar.png" /></a>
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr class="linha_azul">
+                                <th scope="row">@venda.Id</th>
+                                <td>@venda.Cliente.Nome</td>
+                                <td>@venda.DataRegistro</td>
+                                <td>@venda.StatusVenda</td>
+                                <td>@venda.ValorTotal</td>
+                                <td>@venda.StatusPagamento</td>
+                                <td>
+                                    <a asp-action="Detalhar" asp-route-id="@venda.Id" class="btn btn-secondary btn-tables"><img alt="Excluir" class="icones" src="~/img/icones/buscar.svg" /></a>
+                                    <a asp-action="Excluir" asp-route-id="@venda.Id" class="btn btn-danger btn-tables"><img alt="Excluir" class="icones" src="~/img/icones/excluir.svg" /></a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        @Html.PagedListPager((IPagedList)Model, pagina => Url.Action("Index", new { pagina = pagina, pesquisa = pesquisa }))
+    }
+    else
+    {
+        <span>Nenhum registro cadastrado!</span>
+    }
+</div>

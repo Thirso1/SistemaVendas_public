@@ -1,0 +1,74 @@
+﻿@model X.PagedList.IPagedList<SistemaVendas.Models.Produto>
+@{
+    ViewData["Title"] = "Index";
+    var pesquisa = Context.Request.Query["pesquisa"];
+}
+
+<h1>Produto</h1>
+
+<br />
+<br />
+<!--
+    Formulário
+    -- QueryString: Colaborador/Cliente/Index?pesquisa={palavraDigitada}&pagina=3
+-->
+
+<form method="get">
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label for="pesquisa"></label>
+            <input type="text" name="pesquisa" id="pesquisa" value="@pesquisa" class="form-control" placeholder="Digite o nome do produto">
+        </div>
+        <button type="submit" class="btn btn-primary botaoCadastrarNovo">Buscar</button>
+        <a asp-action="Cadastrar" class="btn btn-secondary botaoCadastrarNovo">Novo</a>
+    </div>
+</form>
+<br />
+<br />
+
+@{ await Html.RenderPartialAsync("~/Views/Shared/_Mensagem.cshtml"); }
+
+
+
+@if (Model.Count > 0)
+{
+
+    <div class="table-responsive">
+        <table class="table table-striped table-sm table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">@Html.DisplayNameFor(model => model.First().Id)</th>
+                    <th scope="col">Nome (Descrição)</th>
+                    <th scope="col">Varejo</th>
+                    <th scope="col">Atacado</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.First().Estoque)</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Produto produto in Model)
+                {
+                    <tr>
+                        <th scope="row">@produto.Id</th>
+                        <td>@produto.Nome</td>
+                        <td>@produto.ValorVarejo</td>
+                        <td>@produto.ValorAtacado</td>
+                        <td>@produto.Estoque</td>
+                        <td>
+                            <a asp-action="Atualizar" asp-route-id="@produto.Id" class="btn btn-secondary btn-tables"><img alt="Editar" class="icones" src="~/img/icones/editar.svg" /></a>
+                            <a asp-action="Excluir" asp-route-id="@produto.Id" class="btn btn-danger btn-tables"><img alt="Excluir" class="icones btn-tables" src="~/img/icones/excluir.svg" /></a>
+                            <a asp-action="SuprirEstoque" asp-route-id="@produto.Id" class="btn btn-success btn-tables"><img alt="Clonar" class="icones btn-tables" src="~/img/icones/boxes-stacked.svg" /></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @Html.PagedListPager((IPagedList)Model, pagina => Url.Action("Index", new { pagina = pagina, pesquisa = pesquisa }))
+
+}
+else
+{
+    <span>Nenhum registro cadastrado!</span>
+}

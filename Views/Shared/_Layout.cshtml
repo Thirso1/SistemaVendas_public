@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <meta name="description" content="Loja Virtual em ASP.NET">
+    <meta name="author" content="Adilson Ferreira">
+    <meta name="theme-color" content="#000000">
+
+    <link rel="stylesheet" href="/resources/lib/bootstrap-4.2.1-dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick-theme.css" />
+
+    <link rel="stylesheet" href="/resources/lib/bootstrap-ecommerce-uikit/css/ui.css" />
+    <link rel="stylesheet" href="/resources/lib/bootstrap-ecommerce-uikit/css/responsive.css" media="only screen and (max-width: 1200px)" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous" />
+    <link rel="stylesheet" href="~/css/StyleSheet.css" />
+    <link rel="stylesheet" href="~/resources/lib/pagedlist/PagedList.css" />
+    <link rel="stylesheet" href="~/resources/lib/bootstrap-ecommerce-uikit/ui-ecommerce/plugins/fancybox/fancybox.min.css" />
+
+
+</head>
+<body>
+    <header>
+     
+    </header>
+    <div>
+        @RenderBody()
+    </div>
+    <hr class="featurette-divider">
+
+    <!-- FOOTER -->
+    <footer class="container">
+
+
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+          ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+
+
+    <script src="/resources/lib/holder/holder.min.js"></script>
+    <script src="/resources/lib/jquery3.3.1/jquery-3.3.1.min.js"></script>
+    <script src="~/resources/lib/mask/jquery.mask.min.js"></script>
+    <script src="~/resources/lib/jquery.cookie/jquery.cookie.1.4.1.js"></script>
+    <script src="/resources/lib/popper1.14.6/popper.min.js"></script>
+    <script src="/resources/lib/bootstrap-4.2.1-dist/js/bootstrap.min.js"></script>
+    <script src="~/resources/lib/bootstrap-ecommerce-uikit/ui-ecommerce/plugins/fancybox/fancybox.min.js"></script>
+    @*<script src="~/js/ActionsVisitante.js"></script>*@
+
+
+
+    <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var trigger = $('.hamburger'),
+                overlay = $('.overlay'),
+                isClosed = false;
+
+            trigger.click(function () {
+                hamburger_cross();
+            });
+
+            function hamburger_cross() {
+
+                if (isClosed == true) {
+                    overlay.hide();
+                    trigger.removeClass('is-open');
+                    trigger.addClass('is-closed');
+                    isClosed = false;
+                } else {
+                    overlay.show();
+                    trigger.removeClass('is-closed');
+                    trigger.addClass('is-open');
+                    isClosed = true;
+                }
+            }
+
+            $('[data-toggle="offcanvas"]').click(function () {
+                $('#wrapper').toggleClass('toggled');
+            });
+        });
+
+    </script>
+
+ 
+
+</body>
+</html >

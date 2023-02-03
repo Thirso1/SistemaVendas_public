@@ -1,0 +1,60 @@
+﻿@model SistemaVendas.Models.Venda
+@{
+    ViewData["Title"] = "Atualizar";
+}
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <h3>Dados da Venda</h3>
+            <table class="table table-bordered">
+                <tr>
+                    <td colspan="2"><strong>Situação da Venda:</strong> @Model.StatusVenda</td>
+
+                </tr>
+                <tr>
+                    <td><strong>Cliente:</strong> @Model.Cliente.Nome</td>
+                    <td><strong>Telefone:</strong>@Model.Cliente.Telefone</td>
+                </tr>
+                <tr>
+                    <td><strong>Forma de pagamento: </strong>@Model.FormaPagamento</td>
+                </tr>
+                <tr>
+                    <td><strong>Data: </strong>@Model.DataRegistro</td>
+                </tr>
+            </table>
+
+
+
+
+            <h3>Lista de produtos</h3>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Nome</th>
+                    <th>Valor Uni</th>
+                    <th>Quantidade</th>
+                    <th>Total Item</th>
+                </tr>
+
+                @foreach (var produto in ViewBag.ItensVenda)
+                {
+                    <tr>
+                        <td>@produto.Nome</td>
+                        <td>@produto.ValorUnitario.ToString("C")</td>
+                        <td>@produto.Qtde</td>
+                        <td>@produto.TotalItem.ToString("C")</td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="3"><strong>TOTAL</strong></td>
+                    <td>@Model.ValorTotal.ToString("C")</td>
+                </tr>
+            </table>
+
+            <br />
+            <br />
+            <button class="btn btn-outline-primary btn-lg btn-imprimir">Imprimir</button>
+        </div>
+    </div>
+</div>

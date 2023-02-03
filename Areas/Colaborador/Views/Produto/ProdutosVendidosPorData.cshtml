@@ -1,0 +1,12 @@
+﻿@model List<SistemaVendas.Models.ItemVenda>
+@{
+    ViewData["Title"] = "Relatorio Produtos Vendidos";
+}
+
+@{ 
+    foreach(SistemaVendas.Models.ItemVenda item in Model)
+    {
+        <span>@item.Nome   --  @item.Qtde</span><br />
+    }
+
+}

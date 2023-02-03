@@ -1,0 +1,79 @@
+﻿
+
+<form class="form-inline" id="form_consulta_vendas" method="post">
+
+        <div class="form-group">
+            <label for="dataConsulta">Selecione a data:&nbsp&nbsp&nbsp</label>
+            <input type="date" class="form-control" id="dataConsulta" name="dataConsulta" value="@ViewBag.dataConsulta">
+        </div>
+        <button type="submit" class="btn btn-default">Buscar</button>
+    </form>
+<br />
+<br />
+
+
+<div class="row">
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <a href="@Url.Action("Index", "Venda")?pagina=1&selectClienteVenda=&dataInicio=@DateTime.Today&dataFim=@DateTime.Today.AddDays(1)&statusVenda=">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                <h3>Vendas</h3>
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-success">@ViewBag.VendasPorData</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-100"></i>
+                            <i class="fas fa-dollar-sign fa-2x text-gray-100"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <hr />
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            <h3>Lucro</h3>
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-primary">@ViewBag.LucroPorData</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-100"></i>
+                        <i class="fas fa-dollar-sign fa-2x text-gray-100"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                            <h3>Custo</h3>
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-danger">@ViewBag.CustoPorData</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-100"></i>
+                        <i class="fas fa-dollar-sign fa-2x text-gray-100"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

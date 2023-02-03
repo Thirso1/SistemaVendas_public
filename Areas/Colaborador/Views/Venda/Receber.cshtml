@@ -1,0 +1,97 @@
+﻿@model SistemaVendas.Models.Venda
+@{
+    ViewData["Title"] = "Receber";
+}
+<div class="container">
+
+    <div class="row">
+        <div class="card border-dark col-xl-8 col-md-8 mb-4 cards-detalhe-venda" ">
+            <div class="card-header"><b></b>Cliente</b></div>
+            <div class="card-body text-dark">
+                <h5 class="card-title">@Model.Cliente.Nome</h5>
+                <p class="card-text">CPF/CNPJ: @Model.Cliente.CPF_CNPJ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tel: @Model.Cliente.Telefone</p>
+                <p class="card-text">Endereço: @Model.Cliente.Endereco, @Model.Cliente.Numero</p>
+                <p class="card-text">Bairro: @Model.Cliente.Bairro   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Cidade: @Model.Cliente.Cidade</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="card border-dark col-xl-8 col-md-8 mb-4 cards-detalhe-venda">
+
+            <div class="card-header">Detalhes</div>
+            <div class="card-body text-dark">
+                <h5 class="card-title">Venda N° @Model.Id</h5>
+                <div id="card_valor_venda" class="border-danger">
+                    <h5 class="card-title text-danger">Valor: R$</h5>
+                    <h1 class="card-title text-danger">@Model.ValorTotal</h1>
+                </div>
+
+                <p class="card-text">Data: @Model.DataRegistro.ToString("dd-MM-yyyy")</p>
+                <p class="card-text">Status Pagamento: @Model.StatusPagamento</p>
+                <p class="card-text">Forma de Pagamento: @Model.FormaPagamento</p>
+                <p class="card-text">Status da Venda: @Model.StatusVenda</p>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="card border-primary col-xl-8 col-md-8 mb-4 cards-detalhe-venda">
+            <div class="card-header">Itens da Venda</div>
+            <div class="card-body text-primary">
+                <table class="table table-striped" id="tabelaPedido">
+                    <thead>
+                        <tr>
+                            <th scope="col" hidden>ProdutoId</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">ValorUnitario</th>
+                            <th scope="col">Desconto</th>
+                            <th scope="col">Qtde</th>
+                            <th scope="col">TotalItem</th>
+                            <th scope="col" hidden>VendaId</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bodyTable">
+                        @{
+                            foreach (ItemVenda item in Model.ItensVenda)
+                            {
+                                <tr>
+                                    <td>@item.Nome</td>
+                                    <td>@item.ValorUnitario</td>
+                                    <td>@item.Desconto</td>
+                                    <td>@item.Qtde</td>
+                                    <td>@item.TotalItem</td>
+                                </tr>
+                            }
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <form method="post">
+        <div class=" row">
+            <label asp-for="FormaPagamento" class="col-sm-2 col-form-label">Forma Pag.</label>
+            <select asp-for="FormaPagamento" class="form-control col-sm-3 col-md-3 col-lg-2" id="selectFormaPag">
+                <option value="Dinheiro">Dinheiro</option>
+                <option value="CartaoDebito">Cartao Débito</option>
+                <option value="CartaoCrebito">Cartao Crébito</option>
+                <option value="Boleto">Boleto</option>
+                <option value="Pix">Pix</option>
+                <option value="AmostraGratis">Amostra Grátis</option>
+            </select>
+
+            @* parametros asp-route *@
+            @* 1 = finalizar        *@
+            @* 2 = suspender        *@
+            <button type="submit" asp-action="Receber" id="id_receber_venda" class="btn btn-success">Receber Venda</button>
+            <button type="button" asp-action="Index" asp-controller="Venda" id="cancelarVenda" class="btn btn-danger">Voltar</button>
+            <input type="hidden" asp-for="Id" class="form-control" name="Id_venda" value="@Model.Id">
+
+        </div>
+
+    </form>
+</div>
+

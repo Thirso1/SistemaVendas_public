@@ -1,0 +1,160 @@
+﻿@model SistemaVendas.Models.Venda
+@{
+    ViewData["Title"] = "Cadastrar";
+}
+<div class="container">
+    <form method="post">
+
+        <div class="row">
+            <div class="form-group col-md-4">
+                <h2>Nova Venda</h2>
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="numVenda">N° Venda</label>
+                <input asp-for="Id" type="text" id="numVenda" readonly="readonly" class="form-control" name="numVenda" value="@ViewBag.IdVendaGerado">
+            </div>
+            <div class="form-group col-md-6" id="divValorTotal">
+                <label for="valorVenda" id="cifraoVenda">R$</label>
+                <label id="lblTotal">0,00</label>
+                <input type="hidden" id="valorTotal" name="valorTotal">
+                <input asp-for="CustoTotal" type="hidden" id="custoTotal" name="custoTotal">
+            </div>
+        </div>
+
+
+        <!-- area de campos do form -->
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label asp-for="ClienteId">Cliente</label>
+                <select asp-for="ClienteId" class="form-control selectClienteVenda" id="selectClienteVenda" name="selectClienteVenda" asp-items="@ViewBag.Clientes" required>
+                    <option value="">Selecione</option>
+                </select>
+
+                <span asp-validation-for="ClienteId" class="text-danger"></span>
+            </div>
+        </div>
+        <hr />
+
+        <div class="container">
+            <div class="row">
+                <div id="nomeCliente" class="col-sm-6 col-md-5 col-lg-4">
+
+                </div>
+                <div id="cpf_cnpj" class="col-sm-6 col-md-4 col-lg-3">
+
+                </div>
+            </div>
+            <div class="row">
+                <div id="telefone1Cliente" class="col-sm-6 col-md-4 col-lg-4">
+
+                </div>
+                <div id="telefone2Cliente" class="col-sm-6 col-md-3 col-lg-2">
+
+                </div>
+            </div>
+            <div class="row">
+                <div id="emailCliente" class="col-sm-6 col-md-6 col-lg-6">
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div id="enderecoCliente" class="col-sm-6 col-md-4 col-lg-4">
+
+                </div>
+                <div id="bairroCliente" class="col-sm-6 col-md-2 col-lg-2">
+
+                </div>
+
+            </div>
+            <div class="row">
+                <div id="cidadeCliente" class="col-sm-6 col-md-4 col-lg-2">
+
+                </div>
+                <div id="ufCliente" class="col-sm-6 col-md-3 col-lg-2">
+
+                </div>
+                <div id="cepCliente" class="col-sm-4 col-md-3 col-lg-2">
+
+                </div>
+            </div>
+        </div>
+        <hr />
+
+        <div class="row">
+            <div class="form-group inputs-itens col-md-4">
+                <input type="hidden" id="id_produto" class="form-control" name="id_produto">
+                <label for="ProdutoId">Produto</label>
+                <select for="ProdutoId" class="form-control selectProdutoVenda" id="selectProdutoVenda" asp-items="@ViewBag.Produtos">
+                    <option value="">Selecione</option>
+                </select>
+            </div>
+            <div class="form-group inputs-itens col-md-2">
+                <label for="tipo_preco">Tipo Preço</label>
+                <select for="tipo_preco" class="form-control" id="selectTipoPreco">
+                    <option value="Varejo">Varejo</option>
+                    <option value="Atacado">Atacado</option>
+                </select>
+                <input type="hidden" id="custo_item" class="form-control" name="custo_item">
+                <input type="hidden" id="custo_total_item" class="form-control" name="custo_total_item">
+                <input type="hidden" id="val_varejo" class="form-control" name="val_varejo">
+                <input type="hidden" id="val_atacado" class="form-control" name="val_atacado">
+                <input type="hidden" id="qtde_estoque" class="form-control" name="qtde_estoque">
+            </div>
+            <div class="form-group inputs-itens col-md-1">
+                <label for="val_uni">Val Unit</label>
+                <input type="number" id="val_uni" class="form-control" name="val_uni">
+            </div>
+            <div class="form-group inputs-itens col-md-1">
+                <label for="qtde">Qtde</label>
+                <input type="number" id="qtde_item" class="form-control" name="qtde_item" value="1">
+            </div>
+            <div class="form-group  inputs-itens col-md-2">
+                <label for="total_item">Total Item</label>
+                <input type="number" id="total_item" class="form-control" name="total_item">
+            </div>
+            <button type="button" id="inserirItem" class="btn btn-success" style="margin-top: 29px;">Inserir</button>
+        </div>
+
+        <table class="table table-striped" id="tabelaPedido">
+            <thead>
+                <tr>
+                    <th scope="col" hidden>ProdutoId</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">ValorUnitario</th>
+                    <th scope="col" hidden>Desconto</th>
+                    <th scope="col">Qtde</th>
+                    <th scope="col">TotalItem</th>
+                    <th scope="col" hidden>VendaId</th>
+                </tr>
+            </thead>
+            <tbody id="bodyTable">
+            </tbody>
+        </table>
+
+
+        <div class=" row">
+            <label asp-for="FormaPagamento" class="col-sm-2 col-form-label">Forma Pag.</label>
+            <select asp-for="FormaPagamento" class="form-control col-sm-3 col-md-3 col-lg-2" id="selectFormaPag">
+                <option value="Dinheiro">Dinheiro</option>
+                <option value="CartaoDebito">Cartao Débito</option>
+                <option value="CartaoCrebito">Cartao Crébito</option>
+                <option value="Boleto">Boleto</option>
+                <option value="Prazo">Prazo</option>
+                <option value="Pix">Pix</option>
+                <option value="AmostraGratis">Amostra Grátis</option>
+            </select>
+            @* parametros asp-route *@
+            @* 1 = finalizar        *@
+            @* 2 = suspender        *@
+            <button type="submit" asp-route-status="1" id="finalizarVenda" class="btn btn-success">Finalizar</button>
+            <button type="submit" asp-route-status="2" id="suspenderVenda" class="btn btn-warning">Suspender</button>
+            <button type="button" id="cancelarVenda" class="btn btn-danger">Cancelar</button>
+            <input type="hidden" asp-for="StatusVenda" id="id_status_venda" class="form-control" name="id_status_venda">
+            <input type="hidden" asp-for="StatusPagamento" id="id_status_pagamento" class="form-control" name="id_status_pagamento">
+
+        </div>
+
+    </form>
+</div>

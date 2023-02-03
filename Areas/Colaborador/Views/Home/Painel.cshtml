@@ -1,0 +1,335 @@
+﻿
+@{
+    ViewData["Title"] = "Painel";
+}
+
+<h2 class="display-4 text-success">Vendas</h2>
+
+<div class="row">
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+
+            <a href="@Url.Action("Index", "Venda")?pagina=1&selectClienteVenda=&dataInicio=@DateTime.Today&dataFim=@DateTime.Today.AddDays(1)&statusVenda=">
+
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Hoje
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-success">@ViewBag.VendasHoje</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-100"></i>
+                            <i class="fas fa-dollar-sign fa-2x text-gray-100"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Earnings (Annual) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <a href="@Url.Action("Index", "Venda")?pagina=1&selectClienteVenda=&dataInicio=@ViewBag.Semana&dataFim=@DateTime.Today.AddDays(1)&statusVenda=">
+
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Semana
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-success">@ViewBag.VendasSemana</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-100"></i>
+                            <i class="fas fa-dollar-sign fa-2x text-gray-100"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </div>
+
+    <!-- Tasks Card Example -->
+    <!-- Pending Requests Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Mês
+                        </div>
+
+                        <div class="h5 mb-0 font-weight-bold text-success">@ViewBag.VendasMes</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-100"></i>
+                        <i class="fas fa-dollar-sign fa-2x text-gray-100"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr />
+<h1 class="display-4 text-primary">Lucro</h1>
+
+<div class="row">
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Lucro (Hoje)
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-primary">@ViewBag.LucroHoje</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-100"></i>
+                        <i class="fas fa-dollar-sign fa-2x text-gray-100"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Earnings (Annual) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Lucro (Semana)
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-primary">@ViewBag.LucroSemana</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-100"></i>
+                        <i class="fas fa-dollar-sign fa-2x text-gray-100"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tasks Card Example -->
+    <!-- Pending Requests Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Lucro (Mês)
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-primary">@ViewBag.LucroMes</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-100"></i>
+                        <i class="fas fa-dollar-sign fa-2x text-gray-100"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr />
+<h1 class="display-4 text-danger">Custo</h1>
+
+<div class="row">
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                            Custo (Hoje)
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-danger">@ViewBag.CustoHoje</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-100"></i>
+                        <i class="fas fa-dollar-sign fa-2x text-gray-100"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Earnings (Annual) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                            Custo (Semana)
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-danger">@ViewBag.CustoSemana</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-100"></i>
+                        <i class="fas fa-dollar-sign fa-2x text-gray-100"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tasks Card Example -->
+    <!-- Pending Requests Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                            Custo (Mês)
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-danger">@ViewBag.CustoMes</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-red-100"></i>
+                        <i class="fas fa-dollar-sign fa-2x text-red-100"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr />
+<h3>Ativos</h3>
+<div class="row">
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-danger shadow h-100 py-2">
+            <a id="link_card_vendas_prazo">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                À receber (Prazo)
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-danger">@ViewBag.Prazo</div>
+                        </div>
+                        <div class="col-auto">
+                            <img class="icones" src="~/img/icones/user.svg" />
+                            <i class="fas fa-dollar-sign fa-2x text-gray-100"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <!-- Earnings (Annual) Card Example -->
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <a asp-controller="Venda" asp-action="unidadesProdutosVendidos">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Produtos
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Relatório Saída de Produtos</div>
+                        </div>
+                        <div class="col-auto">
+                            <img class="icones" src="~/img/icones/boxes-stacked.svg" />
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Tasks Card Example -->
+    <!-- Pending Requests Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <a asp-controller="Produto" asp-action="Index">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Ativos em Estoque
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.Estoques</div>
+                        </div>
+                        <div class="col-auto">
+                            <img class="icones" src="~/img/icones/boxes-stacked.svg" />
+                            <i class="fas fa-dollar-sign fa-2x text-gray-100"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<h3>Clientes</h3>
+<div class="row">
+    <!-- total de clientes -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-danger shadow h-100 py-2">
+            <a asp-controller="Cliente" asp-action="Index">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                N° Clientes
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-danger">@ViewBag.Clientes</div>
+                        </div>
+                        <div class="col-auto">
+                            <img class="icones" src="~/img/icones/people-group.svg" />
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <!--  -->
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <a asp-controller="Produto" asp-action="Index">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Tasks Card Example -->
+    <!-- Pending Requests Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <a asp-controller="Produto" asp-action="Index">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+

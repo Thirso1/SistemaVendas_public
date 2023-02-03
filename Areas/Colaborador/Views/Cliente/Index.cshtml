@@ -1,0 +1,68 @@
+﻿@model X.PagedList.IPagedList<SistemaVendas.Models.Cliente>
+@{
+    ViewData["Title"] = "Index";
+    var pesquisa = Context.Request.Query["pesquisa"];
+}
+
+<h1>Clientes</h1>
+
+<br />
+<br />
+<!--
+    Formulário
+    -- QueryString: Colaborador/Cliente/Index?pesquisa={palavraDigitada}&pagina=3
+-->
+<form method="get">
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label for="pesquisa"></label>
+            <input type="text" name="pesquisa" id="pesquisa" value="@pesquisa" class="form-control" placeholder="Digite o nome do Cliente">
+        </div>
+        <button type="submit" class="btn btn-primary botaoCadastrarNovo">Buscar</button>
+        <a asp-action="Cadastrar" class="btn btn-secondary botaoCadastrarNovo">Novo</a>
+    </div>
+
+
+</form>
+<br />
+<br />
+
+@{ await Html.RenderPartialAsync("~/Views/Shared/_Mensagem.cshtml"); }
+
+@if (Model.Count > 0)
+{
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">@Html.DisplayNameFor(model => model.First().Id)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.First().Nome)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.First().Email)</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Cliente cliente in Model)
+                {
+                    <tr>
+                        <th scope="row">@cliente.Id</th>
+                        <td>@cliente.Nome</td>
+                        <td>@cliente.Email</td>
+                        <td>                          
+                             <a asp-action="Atualizar" asp-route-id="@cliente.Id" class="btn btn-secondary btn-tables"><img alt="Editar" class="icones" src="~/img/icones/editar.svg" /></a>                       
+                             <a asp-action="Excluir" asp-route-id="@cliente.Id" class="btn btn-danger btn-tables"><img alt="Excluir" class="icones" src="~/img/icones/excluir.svg" /></a>                        
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @Html.PagedListPager((IPagedList)Model, pagina => Url.Action("Index", new { pagina = pagina, pesquisa = pesquisa }))
+
+}
+else
+{
+    <span>Nenhum registro cadastrado!</span>
+}
